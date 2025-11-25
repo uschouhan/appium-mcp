@@ -1,0 +1,22 @@
+[
+  {
+    "name": "login_button",
+    "strategy": "id",
+    "selector": "com.example.app:id/login_button"
+  },
+  {
+    "name": "username_field",
+    "strategy": "xpath",
+    "selector": "//android.widget.EditText[@content-desc='Username']"
+  },
+  {
+    "name": "password_field",
+    "strategy": "accessibility id",
+    "selector": "Password"
+  },
+  {
+    "name": "submit_button",
+    "strategy": "class name",
+    "selector": "android.widget.Button"
+  }
+]

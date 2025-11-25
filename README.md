@@ -215,6 +215,81 @@ MCP Appium provides a comprehensive set of tools organized into the following ca
 | `appium_generate_tests`      | Generate automated test code from natural language scenarios                     |
 | `appium_documentation_query` | Query Appium documentation using RAG for help and guidance                       |
 
+### Custom Locator Validation
+
+| Tool                    | Description                                                                                   |
+| ----------------------- | --------------------------------------------------------------------------------------------- |
+| `check_locators_from_file` | Check locators from a JSON file against the current emulator page and provide alternate locators |
+
+## Using Custom Locator Validation with Claude Desktop
+
+The custom locator validation tool allows you to check your existing locators against the current state of your mobile app and automatically find alternative locators when elements move or change.
+
+### Prerequisites
+
+1. **Running MCP Server**: Ensure the Appium MCP server is running (`node dist/index.js`)
+2. **Active Appium Session**: You must have an active session with your mobile app loaded
+3. **Locator File**: Prepare a JSON file with your locators in the required format
+
+### Locator File Format
+
+Create a JSON file with your locators in this format:
+
+```json
+[
+  {
+    "pageName": "BasketOrderPage",
+    "pageElementName": "basketsTap",
+    "LocatorStrategy": "xpath",
+    "Locators": "//android.widget.TextView[@text='Baskets']",
+    "fieldName": "Baskets Tap",
+    "timestamp": "2025-09-14",
+    "remarks": "basketsTap",
+    "AutoHeal": "true"
+  },
+  {
+    "pageName": "BasketOrderPage",
+    "pageElementName": "createBasket",
+    "LocatorStrategy": "id",
+    "Locators": "com.msf.angelmobile:id/btnCreateBasket",
+    "fieldName": "Create New Basket",
+    "timestamp": "2025-09-14",
+    "remarks": "createBasket",
+    "AutoHeal": "true"
+  }
+]
+```
+
+### Using with Claude Desktop
+
+1. **Start a Conversation**: Open Claude Desktop and start a new conversation about mobile automation
+
+2. **Request Locator Validation**: Ask Claude to check your locators using natural language:
+   ```
+   Can you check if my locators in /path/to/my/locators.json are working on the current screen? Please suggest alternatives for any that don't work.
+   ```
+
+3. **Claude Will Automatically**:
+   - Call the `check_locators_from_file` tool
+   - Pass the path to your locator file
+   - Receive detailed results including found/missing locators and alternatives
+   - Provide you with a human-readable summary
+
+### Example Claude Prompt
+
+```
+I have an Android app with some locators that might be outdated. Can you check if they work on the current screen using the locator file at /Users/me/projects/myapp/locators/android-locators.json? Please tell me which ones work and suggest alternatives for any that don't work anymore.
+```
+
+### Understanding the Results
+
+The tool returns:
+- **Total locators checked**
+- **Found vs missing count**
+- **Details for each working locator**
+- **Details for each missing locator with alternative suggestions**
+- **Error information for failed locators**
+
 ## 🤖 Client Support
 
 MCP Appium is designed to be compatible with any MCP-compliant client.
@@ -232,9 +307,3 @@ Open Amazon mobile app, search for "iPhone 15 Pro", select the first search resu
 This example demonstrates a complete e-commerce checkout flow that can be automated using MCP Appium's intelligent locator generation and test creation capabilities.
 
 ## 🙌 Contributing
-
-Contributions are welcome! Please feel free to submit a pull request or open an issue to discuss any changes.
-
-## 📄 License
-
-This project is licensed under the Apache-2.0. See the [LICENSE](LICENSE) file for details.

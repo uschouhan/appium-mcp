@@ -38,6 +38,7 @@ import installApp from './app-management/install-app.js';
 import uninstallApp from './app-management/uninstall-app.js';
 import terminateApp from './app-management/terminate-app.js';
 import listApps from './app-management/list-apps.js';
+import checkLocators from './locator-validation/check-locators.js';
 
 export default function registerTools(server: FastMCP): void {
   // Wrap addTool to inject logging around tool execution
@@ -143,5 +144,8 @@ export default function registerTools(server: FastMCP): void {
 
   // Documentation
   answerAppium(server);
+  
+  // Locator Validation
+  checkLocators(server);
   log.info('All tools registered');
 }
