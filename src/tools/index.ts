@@ -39,6 +39,7 @@ import uninstallApp from './app-management/uninstall-app.js';
 import terminateApp from './app-management/terminate-app.js';
 import listApps from './app-management/list-apps.js';
 import checkLocators from './locator-validation/check-locators.js';
+import placeStockOrder from './interactions/place-stock-order.js';
 
 export default function registerTools(server: FastMCP): void {
   // Wrap addTool to inject logging around tool execution
@@ -130,6 +131,7 @@ export default function registerTools(server: FastMCP): void {
   getText(server);
   getPageSource(server);
   screenshot(server);
+  placeStockOrder(server);
 
   // App Management
   activateApp(server);
